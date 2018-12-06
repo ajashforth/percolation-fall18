@@ -1,5 +1,5 @@
-Your name
-Your netid
+Alec Ashforth
+aja40
 
 Copy/Paste results from PercolationStats using PercolationDFS
 
@@ -9,14 +9,54 @@ Copy/Paste results from PercolationStats using PercolationDFSFast
 
 Copy/Paste results from PercolationStats using PercolationBFS
 
+simulation data for 20 trials
+grid	mean	stddev	time
+100		0.593	0.014	0.084
+200		0.591	0.010	0.198
+400		0.590	0.006	0.697
+800		0.594	0.004	4.548
+1600	0.592	0.002	26.181
+3200	0.593	0.001	168.016
+
 
 Copy/Paste results from PercolationStats using PercolationUF 
 with the QuickUWPC UnionFind implementation.
+
+simulation data for 20 trials
+grid	mean	stddev	time
+100		0.593	0.014	0.057
+200		0.591	0.010	0.117
+400		0.590	0.006	0.682
+800		0.594	0.004	3.102
+1600	0.592	0.002	17.414
+3200	0.593	0.001	126.112
 
 1. How does doubling the grid size affect running time (keeping # trials fixed)
 
 
 2. How does doubling the number of trials affect running time.
 
+simulation data for 40 trials
+grid	mean	stddev	time
+100		0.594	0.015	0.189
+200		0.591	0.009	0.221
+400		0.591	0.005	1.117
+800		0.593	0.004	7.484
+1600	0.593	0.002	38.586
+3200	0.593	0.001	331.206
+
+The table above is my result when I double the number of trials. It seems
+that doubling the number of trials results in the time needed for each grid 
+size to double as well. For instance, at grid size 400, the time for 20 trials
+was 0.682secs while the time for 40 trials was 1.117secs. 1.117 is approximatley 
+double 0.682.
+
 
 3. Estimate the largest grid size you can run in 24 hours with 20 trials. Explain your reasoning.
+
+I used Excel to make a polynomial graph of order 2 using the grid size as the coordinates and the
+time in seconds as the y coordinates since the time seemed to be increasing exponentially by at 
+least x^2 but not so much so that it could be x^3. The equation of best fit for this line was 
+y=0.00002x^2-0.0178x+3.4568 which (when you plug in 24 hours, aka 86400 seconds for y) gives you
+a grid size of 66171.89848912695. Thus, I estimate that the largest grid size I can run in 24 hours
+with 20 trials is a grid size of 66171.
