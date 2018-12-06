@@ -9,7 +9,7 @@ public class PercolationUF implements IPercolate{
 	
 	public PercolationUF(int size, IUnionFind finder) {
 		myGrid = new boolean[size][size];
-		myFinder.initialize(size * size + 2);
+		myFinder = myFinder.initialize(size * size + 2);
 		myOpenCount = 0;
 	}
 
@@ -18,24 +18,27 @@ public class PercolationUF implements IPercolate{
 		if (row < 0 || row >= myGrid.length || col < 0 || col >= myGrid.length) {
 			throw new IndexOutOfBoundsException("Not in bounds");
 		}
-		myGrid[row][col] = true;
-		if(row == 0) {
-			myFinder.union(row, VTOP);
-		}
-		else if(col == myGrid.length - 1) {
-			myFinder.union(row * myGrid.length + col, VBOTTOM);
-		}
-		if(isOpen(row, col - 1)) {
-			myFinder.union(row * myGrid.length + col, row * myGrid.length + col - 1);
-		}
-		if(isOpen(row, col + 1)) {
-			myFinder.union(row * myGrid.length + col, row * myGrid.length + col + 1);
-		}
-		if(isOpen(row - 1, col)) {
-			myFinder.union(row * myGrid.length + col, (row-1) * myGrid.length + col);
-		}
-		if(isOpen(row + 1, col)) {
-			myFinder.union(row * myGrid.length + col, (row+1) * myGrid.length + col - 1);
+		if(myGrid[row][col] != true) {
+			myGrid[row][col] = true;
+			myOpenCount = myOpenCount + 1;
+			if(row == 0) {
+				myFinder.union(col, VTOP);
+			}
+			else if(col == myGrid.length - 1) {
+				myFinder.union(row * myGrid.length + col, VBOTTOM);
+			}
+			if(isOpen(row, col - 1)) {
+				myFinder.union(row * myGrid.length + col, row * myGrid.length + col - 1);
+			}
+			if(isOpen(row, col + 1)) {
+				myFinder.union(row * myGrid.length + col, row * myGrid.length + col + 1);
+			}
+			if(isOpen(row - 1, col)) {
+				myFinder.union(row * myGrid.length + col, (row-1) * myGrid.length + col);
+			}
+			if(isOpen(row + 1, col)) {
+				myFinder.union(row * myGrid.length + col, (row+1) * myGrid.length + col - 1);
+			}
 		}
 	}
 
@@ -57,7 +60,12 @@ public class PercolationUF implements IPercolate{
 		if (row < 0 || row >= myGrid.length || col < 0 || col >= myGrid.length) {
 			throw new IndexOutOfBoundsException("Not in bounds");
 		}
-		return false;
+		if(myFinder.connected(row * myGrid.length + col, VTOP)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
