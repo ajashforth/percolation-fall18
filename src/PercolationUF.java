@@ -40,7 +40,7 @@ public class PercolationUF implements IPercolate{
 				myFinder.union(row * myGrid.length + col, (row-1) * myGrid.length + col);
 			}
 			if(row + 1 < myGrid.length && isOpen(row + 1, col)) {
-				myFinder.union(row * myGrid.length + col, (row+1) * myGrid.length + col - 1);
+				myFinder.union(row * myGrid.length + col, (row+1) * myGrid.length + col);
 			}
 		}
 	}
