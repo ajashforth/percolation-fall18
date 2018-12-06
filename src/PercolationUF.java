@@ -4,14 +4,16 @@ public class PercolationUF implements IPercolate{
 	protected boolean[][] myGrid;
 	protected int myOpenCount;
 	protected IUnionFind myFinder;
-	private final int VTOP = -100;
-	private final int VBOTTOM = -200;
+	private final int VTOP;
+	private final int VBOTTOM;
 	
 	public PercolationUF(int size, IUnionFind finder) {
 		myGrid = new boolean[size][size];
 		finder.initialize(size * size + 2);
 		myFinder = finder;
 		myOpenCount = 0;
+		VTOP = size * size;
+		VBOTTOM = size * size + 1;
 	}
 
 	@Override
